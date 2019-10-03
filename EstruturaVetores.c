@@ -28,6 +28,7 @@
 		int i, j;
 
 		p = fopen("dados.txt","w");
+		//**************************SALVA DADOS**************************
 		if(p){
 			for(i=0; i<10; i++){
 				fprintf(p, "%d", vetores[i].existe);
@@ -52,10 +53,11 @@
 		char c;
 		char *retorno, **pont;
 		p = fopen("dados.txt","r");
+		//**************************CARREGA DADOS**************************
 		if(p){
 			while(i<10){
 
-				fseek(p, m, SEEK_SET);
+				fseek(p, m, SEEK_SET);//posiciona o ponteiro na linha correta
 				do{
 					c = fgetc(p);
 					cont++;	
@@ -63,14 +65,15 @@
 						break;
 				}while(c != EOF );
 				
-				m = ftell(p);
-				fseek(p, m-cont-1, SEEK_SET);
+				m = ftell(p);// pega o bit em que o ponteiro se encontra 
+				fseek(p, m-cont-1, SEEK_SET);// retorna o ponteiro pro inicio da linha
 				char linha[cont];
-				fgets(linha, cont, p);
+				fgets(linha, cont, p);//lê a linha
+
 				retorno = strtok(linha, ";");
 				vetores[i].existe = atoi(retorno);
 				
-				if(vetores[i].existe == 1){
+				if(vetores[i].existe == 1){//Salva os Valores em seus respectivos locais
 				
 					retorno = strtok('\0', ";");
 		
@@ -85,10 +88,11 @@
 					tam= vetores[i].espaco;
 
 					vetores[i].vetorauxiliar = (int *) malloc( tam * sizeof(int));
+
 					if(!vetores[i].vetorauxiliar)
 						printf("ERROR\n" );
 					
-					for(j=0; j<vetores[i].quantidade; j++){
+					for(j=0; j<vetores[i].quantidade; j++){//salva dados dos vetores auxiliares 
 						retorno = strtok('\0', ";");
 						vetores[i].vetorauxiliar[j] = atoi(retorno);
 						}
