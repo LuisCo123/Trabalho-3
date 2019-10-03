@@ -46,5 +46,5 @@ void insereDadosNaLista(No* lista, int num);
 No* montarListaEncadeadaComCabecote();
 void getDadosListaEncadeadaComCabecote(No* inicio, int vetorAux[]);
 void destruirListaEncadeadaComCabecote(No* inicio);
-void salvadados();
-void carregadados();
+void salvadados(char op);
+void carregadados(char op);

@@ -9,25 +9,42 @@
 
 	void inicializar(){
 		int i;
+		FILE *p;
+		char op;
+
 		for(i=0; i<TAM; i++){
 			vetores[i].posicaovetor = 0;
 			vetores[i].quantidade = 0;
 			vetores[i].existe = 0;
 			vetores[i].espaco = 0;
 		}
-		carregadados();
+		p = fopen("config.txt","r");
+		if(p){
+		op = fgetc(p);
+		printf("%c", op);
+		carregadados(op);
+		}else{printf("ERROR");}
 	}
 	void finalizar(){
 		int i;
-		salvadados();
+		FILE *p;
+		char op;
+		p = fopen("config.txt","r");
+		if(p){
+		op = fgetc(p);
+		salvadados(op);
+		}else{printf("ERROR");}
+
 		for(i=0; i<TAM; i++)
 			free (vetores[i].vetorauxiliar);
 	}
-	void salvadados(){
+	void salvadados(char op){
 		FILE *p;
 		int i, j;
-
-		p = fopen("dados.txt","w");
+		if(op=='1')
+			p = fopen("dados.txt","w");
+		if(op=='2')
+			p = fopen("dados.bin","w");
 		//**************************SALVA DADOS**************************
 		if(p){
 			for(i=0; i<10; i++){
@@ -47,12 +64,15 @@
 		}
 		fclose(p);
 	}
-	void carregadados(){
+	void carregadados(char op){
 		FILE *p;
 		int i=0, j, k=1,m = 0, cont = 0, tam=0, l;
 		char c;
 		char *retorno, **pont;
-		p = fopen("dados.txt","r");
+		if(op=='1')
+			p = fopen("dados.txt","r");
+		if(op=='2')
+			p = fopen("dados.bin","r");
 		//**************************CARREGA DADOS**************************
 		if(p){
 			while(i<10){
